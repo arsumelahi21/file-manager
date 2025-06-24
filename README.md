@@ -58,8 +58,6 @@ npm install
 This project uses **Supabase for both database and file storage**.
 
 > A working `.env` file is **included** in the project to simplify setup.  
-> You only need to ensure your Supabase project matches the structure (tables, policies).
-
 
 ### 4. Run the App
 
