@@ -112,48 +112,49 @@ export default function FilesPage() {
   }, []);
 
   return (
-    <div className="space-y-10">
-      <h2 className="text-2xl font-bold"> Manage & Upload Files</h2>
+    <div className="w-full max-w-4xl mx-auto px-4 py-6 space-y-10">
+      <h2 className="text-2xl font-bold text-center sm:text-left">Manage & Upload Files</h2>
 
-      {/* Upload */}
+      {/* Upload Form */}
       <div className="bg-white border p-4 rounded shadow space-y-4">
         <h3 className="font-semibold text-lg">Upload a File</h3>
 
-        <select
-          value={selectedFolderId ?? ""}
-          onChange={(e) => setSelectedFolderId(e.target.value || null)}
-          className="border p-2 rounded w-full"
-        >
-          <option value="">Select a folder</option>
-          {folders.map((folder) => (
-            <option key={folder.id} value={folder.id}>
-              {folder.name}
-            </option>
-          ))}
-        </select>
+        <div className="flex flex-col gap-2 sm:flex-row">
+          <select
+            value={selectedFolderId ?? ""}
+            onChange={(e) => setSelectedFolderId(e.target.value || null)}
+            className="border p-2 rounded w-full"
+          >
+            <option value="">Select a folder</option>
+            {folders.map((folder) => (
+              <option key={folder.id} value={folder.id}>
+                {folder.name}
+              </option>
+            ))}
+          </select>
 
-        <input
-          type="file"
-          onChange={(e) => setFile(e.target.files?.[0] || null)}
-          className="border p-2 rounded w-full"
-        />
+          <input
+            type="file"
+            onChange={(e) => setFile(e.target.files?.[0] || null)}
+            className="border p-2 rounded w-full"
+          />
+        </div>
 
         <button
-            onClick={handleUpload}
-            disabled={uploading}
-            className="flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed"
-            >
-            {uploading && <Spinner />}
-            {uploading ? "Uploading..." : "Upload File"}
+          onClick={handleUpload}
+          disabled={uploading}
+          className="flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed w-full sm:w-auto"
+        >
+          {uploading && <Spinner />}
+          {uploading ? "Uploading..." : "Upload File"}
         </button>
-
       </div>
 
       {/* Uncategorized Files */}
       {getFilesInFolder(null).length > 0 && (
         <div className="space-y-3">
-          <h3 className="text-xl font-semibold text-blue-800"> Uncategorized</h3>
-          <ul className="space-y-4">
+          <h3 className="text-xl font-semibold text-blue-800">Uncategorized</h3>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {getFilesInFolder(null).map((file) => {
               const url = `${supabaseUrl}/storage/v1/object/public/files/${file.path}`;
               return (
@@ -163,24 +164,28 @@ export default function FilesPage() {
                       href={url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:underline font-medium"
+                      className="text-blue-600 hover:underline font-medium break-all"
                     >
                       📄 {file.name}
                     </a>
-                    <div className="space-x-2 text-sm">
+                    <div className="flex gap-2">
                       <RenameDialog
                         currentName={file.name}
                         onConfirm={(newName) => renameFile(file.id, newName)}
                         trigger={
-                          <button className="text-blue-600 hover:underline">Rename</button>
+                          <button className="text-blue-600 hover:text-blue-800" title="Rename">
+                            <Pencil size={18} />
+                          </button>
                         }
                       />
-                      <button
-                        onClick={() => deleteFile(file.id, file.path)}
-                        className="text-red-600 hover:underline"
-                      >
-                        Delete
-                      </button>
+                      <DeleteDialog
+                        onConfirm={() => deleteFile(file.id, file.path)}
+                        trigger={
+                          <button className="text-red-600 hover:text-red-800" title="Delete">
+                            <Trash size={18} />
+                          </button>
+                        }
+                      />
                     </div>
                   </div>
                 </li>
@@ -198,11 +203,11 @@ export default function FilesPage() {
           const folderFiles = getFilesInFolder(folder.id);
           return (
             <div key={folder.id} className="space-y-3">
-              <h3 className="text-xl font-semibold text-blue-800"> {folder.name}</h3>
+              <h3 className="text-xl font-semibold text-blue-800">{folder.name}</h3>
               {folderFiles.length === 0 ? (
                 <p className="text-sm text-gray-400 italic">No files in this folder.</p>
               ) : (
-                <ul className="space-y-4">
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {folderFiles.map((file) => {
                     const url = `${supabaseUrl}/storage/v1/object/public/files/${file.path}`;
                     return (
@@ -212,28 +217,28 @@ export default function FilesPage() {
                             href={url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:underline font-medium"
+                            className="text-blue-600 hover:underline font-medium break-all"
                           >
                             {file.name}
                           </a>
-                          <div className="space-x-2 text-sm">
+                          <div className="flex gap-2">
                             <RenameDialog
                               currentName={file.name}
                               onConfirm={(newName) => renameFile(file.id, newName)}
                               trigger={
-                                <button className="text-blue-600 hover:underline" title="Rename"> 
+                                <button className="text-blue-600 hover:text-blue-800" title="Rename">
                                   <Pencil size={18} />
                                 </button>
                               }
                             />
                             <DeleteDialog
-                                onConfirm={() => deleteFile(file.id, file.path)}
-                                trigger={
-                                    <button className="text-red-600 hover:underline" title="Delete">
-                                      <Trash size={18} />
-                                    </button>
-                                }
-                                />
+                              onConfirm={() => deleteFile(file.id, file.path)}
+                              trigger={
+                                <button className="text-red-600 hover:text-red-800" title="Delete">
+                                  <Trash size={18} />
+                                </button>
+                              }
+                            />
                           </div>
                         </div>
                       </li>
