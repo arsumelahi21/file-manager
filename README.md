@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# File Manager App
 
-## Getting Started
+A secure and user-friendly File Manager web application built with **Next.js 14 (App Router)**, **Tailwind CSS**, **NextAuth.js**, and **Supabase**.
 
-First, run the development server:
+Users can register, log in, and manage their own folders and files — including uploading, previewing, renaming, and deleting.
+
+---
+
+## Features
+
+### Core Functionality
+
+- 🔐 **User Authentication** (Sign Up, Sign In, Logout)
+- 🔒 **Protected Routes** (Only logged-in users can access dashboard/API)
+- 📁 **Folder Management**
+  - Create new folders
+  - Rename and delete folders
+- 📂 **File Management**
+  - Upload files to specific folders
+  - List files per folder
+  - Rename and delete files
+  - Preview PDFs & images
+- 🧑‍💻 **User-specific Storage**
+  - Each user only sees and manages their own files and folders
+- 📱 **Responsive UI**
+  - Clean layout for mobile and desktop
+
+---
+
+## 🛠️ Tech Stack
+
+- **Next.js 14** (App Router)
+- **Tailwind CSS** for styling
+- **NextAuth.js** for authentication
+- **Supabase**
+  - Database for folders/files metadata
+  - Storage for actual files
+  - RLS (Row-Level Security) for access control
+
+---
+
+##  Setup Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/arsumelahi21/file-manager.git
+cd file-manager
+````
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure Environment Variables
+
+This project uses **Supabase for both database and file storage**.
+
+> A working `.env.local` file is **included** in the project to simplify setup.  
+> You only need to ensure your Supabase project matches the structure (tables, policies).
+
+
+### 4. Run the App
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open your browser at `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📌 Notes
 
-## Learn More
+* Files are **not** stored in the database — only metadata like path/name/user\_id.
+* All routes are protected with `getUserSession` to avoid unauthorized access.
+* RLS ensures users only access their own files/folders.
+* Fully responsive UI built with Tailwind CSS.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
