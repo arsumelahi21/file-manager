@@ -13,17 +13,17 @@ Users can register, log in, and manage their own folders and files — including
 -  **User Authentication** (Sign Up, Sign In, Logout)
 -  **Protected Routes** (Only logged-in users can access dashboard/API)
 -  **Folder Management**
-  - Create new folders
-  - Rename and delete folders
+    - Create new folders
+    - Rename and delete folders
 -  **File Management**
-  - Upload files to specific folders
-  - List files per folder
-  - Rename and delete files
-  - Preview PDFs & images
+    - Upload files to specific folders
+    - List files per folder
+    - Rename and delete files
+    - Preview PDFs & images
 -  **User-specific Storage**
-  - Each user only sees and manages their own files and folders
+    - Each user only sees and manages their own files and folders
 -  **Responsive UI**
-  - Clean layout for mobile and desktop
+    - Clean layout for mobile and desktop
 
 ---
 
@@ -33,10 +33,9 @@ Users can register, log in, and manage their own folders and files — including
 - **Tailwind CSS** for styling
 - **NextAuth.js** for authentication
 - **Supabase**
-  - Database for folders/files metadata
-  - Storage for actual files
-  - RLS (Row-Level Security) for access control
-
+    - Database for folders/files metadata
+    - Storage for actual files
+  
 ---
 
 ##  Setup Instructions
