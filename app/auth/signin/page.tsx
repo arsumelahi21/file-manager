@@ -36,7 +36,7 @@ export default function SignIn() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300 px-4">
       <div className="bg-white p-10 rounded-xl shadow-2xl w-full max-w-md space-y-6">
         <h1 className="text-3xl font-bold text-center text-blue-700">
-          Welcome Back 👋
+          Welcome Back 
         </h1>
 
         {errorMsg && (
